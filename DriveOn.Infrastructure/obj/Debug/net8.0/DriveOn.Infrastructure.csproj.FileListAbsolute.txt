@@ -1,0 +1,17 @@
+C:\Users\NF-ENG-GUSTAVODIAS\Downloads\DriveOnBackend\DriveOn.Infrastructure\bin\Debug\net8.0\DriveOn.Infrastructure.deps.json
+C:\Users\NF-ENG-GUSTAVODIAS\Downloads\DriveOnBackend\DriveOn.Infrastructure\bin\Debug\net8.0\DriveOn.Infrastructure.dll
+C:\Users\NF-ENG-GUSTAVODIAS\Downloads\DriveOnBackend\DriveOn.Infrastructure\bin\Debug\net8.0\DriveOn.Infrastructure.pdb
+C:\Users\NF-ENG-GUSTAVODIAS\Downloads\DriveOnBackend\DriveOn.Infrastructure\bin\Debug\net8.0\DriveOn.Application.dll
+C:\Users\NF-ENG-GUSTAVODIAS\Downloads\DriveOnBackend\DriveOn.Infrastructure\bin\Debug\net8.0\DriveOn.Domain.dll
+C:\Users\NF-ENG-GUSTAVODIAS\Downloads\DriveOnBackend\DriveOn.Infrastructure\bin\Debug\net8.0\DriveOn.Domain.pdb
+C:\Users\NF-ENG-GUSTAVODIAS\Downloads\DriveOnBackend\DriveOn.Infrastructure\bin\Debug\net8.0\DriveOn.Application.pdb
+C:\Users\NF-ENG-GUSTAVODIAS\Downloads\DriveOnBackend\DriveOn.Infrastructure\obj\Debug\net8.0\DriveOn.Infrastructure.csproj.AssemblyReference.cache
+C:\Users\NF-ENG-GUSTAVODIAS\Downloads\DriveOnBackend\DriveOn.Infrastructure\obj\Debug\net8.0\DriveOn.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\NF-ENG-GUSTAVODIAS\Downloads\DriveOnBackend\DriveOn.Infrastructure\obj\Debug\net8.0\DriveOn.Infrastructure.AssemblyInfoInputs.cache
+C:\Users\NF-ENG-GUSTAVODIAS\Downloads\DriveOnBackend\DriveOn.Infrastructure\obj\Debug\net8.0\DriveOn.Infrastructure.AssemblyInfo.cs
+C:\Users\NF-ENG-GUSTAVODIAS\Downloads\DriveOnBackend\DriveOn.Infrastructure\obj\Debug\net8.0\DriveOn.Infrastructure.csproj.CoreCompileInputs.cache
+C:\Users\NF-ENG-GUSTAVODIAS\Downloads\DriveOnBackend\DriveOn.Infrastructure\obj\Debug\net8.0\DriveOn..3E64D040.Up2Date
+C:\Users\NF-ENG-GUSTAVODIAS\Downloads\DriveOnBackend\DriveOn.Infrastructure\obj\Debug\net8.0\DriveOn.Infrastructure.dll
+C:\Users\NF-ENG-GUSTAVODIAS\Downloads\DriveOnBackend\DriveOn.Infrastructure\obj\Debug\net8.0\refint\DriveOn.Infrastructure.dll
+C:\Users\NF-ENG-GUSTAVODIAS\Downloads\DriveOnBackend\DriveOn.Infrastructure\obj\Debug\net8.0\DriveOn.Infrastructure.pdb
+C:\Users\NF-ENG-GUSTAVODIAS\Downloads\DriveOnBackend\DriveOn.Infrastructure\obj\Debug\net8.0\ref\DriveOn.Infrastructure.dll

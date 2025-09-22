@@ -1,0 +1,94 @@
+using System.Text;
+using DriveOn.Infrastructure.Persistence;
+using DriveOn.Infrastructure.Security;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
+
+var builder = WebApplication.CreateBuilder(args);
+
+// ========================== DB (Postgres)
+builder.Services.AddDbContext<DriveOnContext>(opt =>
+    opt.UseNpgsql(builder.Configuration.GetConnectionString("Postgres"))); // ajuste o nome se seu appsettings usa outro
+
+// ========================== DI
+builder.Services.AddScoped<IPasswordHasher, BcryptPasswordHasher>();
+
+// ========================== CORS
+const string AllowFrontend = "AllowFrontend";
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(AllowFrontend, policy =>
+    {
+        policy.WithOrigins("http://localhost:5173")
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
+
+// ========================== JWT
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(options =>
+{
+    options.RequireHttpsMetadata = false;
+    options.SaveToken = true;
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        ValidIssuer = builder.Configuration["Jwt:Issuer"],
+        ValidAudience = builder.Configuration["Jwt:Audience"],
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]!))
+    };
+});
+
+builder.Services.AddAuthorization();
+
+// ========================== Controllers + Swagger
+builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "DriveOn API", Version = "v1" });
+    var jwtScheme = new OpenApiSecurityScheme
+    {
+        Name = "Authorization",
+        Type = SecuritySchemeType.Http,
+        Scheme = "bearer",
+        BearerFormat = "JWT",
+        In = ParameterLocation.Header,
+        Description = "Autenticação JWT via header Bearer."
+    };
+    c.AddSecurityDefinition("Bearer", jwtScheme);
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement { { jwtScheme, Array.Empty<string>() } });
+});
+
+var app = builder.Build();
+
+// ========================== Migrate (dev helper)
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<DriveOnContext>();
+    db.Database.Migrate();
+}
+
+// ========================== Pipeline
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
+
+app.UseCors(AllowFrontend); // antes de Auth
+app.UseAuthentication();
+app.UseAuthorization();
+app.MapControllers();
+
+app.Run();

@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "IXNOebPEs5w0uGA/YjJnVsoCNEcvyX4LtpHhPetZrd8=",
+  "Source": "DriveOn.Api",
+  "BasePath": "_content/DriveOn.Api",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}

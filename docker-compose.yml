@@ -1,0 +1,28 @@
+version: "3.8"
+services:
+  db:
+    image: postgres:16
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: driveon_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  api:
+    build:
+      context: .                       # <— raiz da solução
+      dockerfile: DriveOn.Api/Dockerfile
+    depends_on:
+      - db
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ConnectionStrings__Postgres: Host=db;Port=5432;Database=driveon_db;Username=postgres;Password=postgres
+    ports:
+      - "5080:8080"
+
+volumes:
+  pgdata:
+

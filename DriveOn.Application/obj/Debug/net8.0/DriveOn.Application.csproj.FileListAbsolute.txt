@@ -1,0 +1,15 @@
+C:\Users\NF-ENG-GUSTAVODIAS\Downloads\DriveOnBackend\DriveOn.Application\bin\Debug\net8.0\DriveOn.Application.deps.json
+C:\Users\NF-ENG-GUSTAVODIAS\Downloads\DriveOnBackend\DriveOn.Application\bin\Debug\net8.0\DriveOn.Application.dll
+C:\Users\NF-ENG-GUSTAVODIAS\Downloads\DriveOnBackend\DriveOn.Application\bin\Debug\net8.0\DriveOn.Application.pdb
+C:\Users\NF-ENG-GUSTAVODIAS\Downloads\DriveOnBackend\DriveOn.Application\bin\Debug\net8.0\DriveOn.Domain.dll
+C:\Users\NF-ENG-GUSTAVODIAS\Downloads\DriveOnBackend\DriveOn.Application\bin\Debug\net8.0\DriveOn.Domain.pdb
+C:\Users\NF-ENG-GUSTAVODIAS\Downloads\DriveOnBackend\DriveOn.Application\obj\Debug\net8.0\DriveOn.Application.csproj.AssemblyReference.cache
+C:\Users\NF-ENG-GUSTAVODIAS\Downloads\DriveOnBackend\DriveOn.Application\obj\Debug\net8.0\DriveOn.Application.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\NF-ENG-GUSTAVODIAS\Downloads\DriveOnBackend\DriveOn.Application\obj\Debug\net8.0\DriveOn.Application.AssemblyInfoInputs.cache
+C:\Users\NF-ENG-GUSTAVODIAS\Downloads\DriveOnBackend\DriveOn.Application\obj\Debug\net8.0\DriveOn.Application.AssemblyInfo.cs
+C:\Users\NF-ENG-GUSTAVODIAS\Downloads\DriveOnBackend\DriveOn.Application\obj\Debug\net8.0\DriveOn.Application.csproj.CoreCompileInputs.cache
+C:\Users\NF-ENG-GUSTAVODIAS\Downloads\DriveOnBackend\DriveOn.Application\obj\Debug\net8.0\DriveOn..58512C53.Up2Date
+C:\Users\NF-ENG-GUSTAVODIAS\Downloads\DriveOnBackend\DriveOn.Application\obj\Debug\net8.0\DriveOn.Application.dll
+C:\Users\NF-ENG-GUSTAVODIAS\Downloads\DriveOnBackend\DriveOn.Application\obj\Debug\net8.0\refint\DriveOn.Application.dll
+C:\Users\NF-ENG-GUSTAVODIAS\Downloads\DriveOnBackend\DriveOn.Application\obj\Debug\net8.0\DriveOn.Application.pdb
+C:\Users\NF-ENG-GUSTAVODIAS\Downloads\DriveOnBackend\DriveOn.Application\obj\Debug\net8.0\ref\DriveOn.Application.dll
