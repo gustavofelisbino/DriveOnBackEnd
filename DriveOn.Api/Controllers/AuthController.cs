@@ -28,6 +28,10 @@ public class AuthController : ControllerBase
     [HttpPost("register")]
     public async Task<IActionResult> Register([FromBody] DriveOn.Application.Usuarios.UsuarioCreateDto dto)
     {
+        // valida FK antes: empresa precisa existir
+        var empresaExists = await _db.Empresas.AnyAsync(e => e.Id == dto.EmpresaId);
+        if (!empresaExists) return BadRequest("Empresa inexistente.");
+
         var userExists = await _db.Usuarios.AnyAsync(u => u.EmpresaId == dto.EmpresaId && u.Email == dto.Email);
         if (userExists) return Conflict("E-mail já utilizado na empresa.");
 
@@ -49,22 +53,16 @@ public class AuthController : ControllerBase
         return CreatedAtAction(nameof(Login), new { id = usuario.Id }, new { usuario.Id, usuario.Nome, usuario.Email });
     }
 
-    [HttpPost("login")]
-    public async Task<ActionResult<LoginResponse>> Login([FromBody] LoginRequest req)
-    {
-        var user = await _db.Usuarios.FirstOrDefaultAsync(u => u.EmpresaId == req.EmpresaId && u.Email == req.Email && u.Ativo);
-        if (user is null || !_hasher.Verify(req.Password, user.SenhaHash))
-            return Unauthorized("E-mail ou senha inválidos.");
-
-        return CreateJwt(user);
-    }
-
-    // Login por e-mail (descobre a empresa). Se houver mais de uma, retorna 409 com a lista.
     [HttpPost("login-email")]
-    public async Task<ActionResult<object>> LoginByEmail([FromBody] LoginByEmailRequest req)
+    public async Task<ActionResult<LoginResponse>> LoginByEmail([FromBody] LoginByEmailRequest req)
     {
+        var email = (req.Email ?? "").Trim();
+        var password = (req.Password ?? "").Trim();
+
+        // busca por e-mail normalizado (CITEXT já é case-insensitive, mas o Trim evita espaços)
         var users = await _db.Usuarios
-            .Where(u => u.Email == req.Email && u.Ativo)
+            .AsNoTracking()
+            .Where(u => u.Ativo && u.Email == email)
             .ToListAsync();
 
         if (users.Count == 0)
@@ -78,8 +76,7 @@ public class AuthController : ControllerBase
                 .Select(e => new { e.Id, e.Nome })
                 .ToListAsync();
 
-            return Conflict(new
-            {
+            return Conflict(new {
                 code = "MULTIPLE_COMPANIES",
                 message = "Selecione a empresa para continuar.",
                 empresas
@@ -87,7 +84,23 @@ public class AuthController : ControllerBase
         }
 
         var user = users[0];
-        if (!_hasher.Verify(req.Password, user.SenhaHash))
+        if (!_hasher.Verify(password, user.SenhaHash))
+            return Unauthorized("E-mail ou senha inválidos.");
+
+        return CreateJwt(user);
+    }
+
+    [HttpPost("login")]
+    public async Task<ActionResult<LoginResponse>> Login([FromBody] LoginRequest req)
+    {
+        var email = (req.Email ?? "").Trim();
+        var password = (req.Password ?? "").Trim();
+
+        var user = await _db.Usuarios
+            .AsNoTracking()
+            .FirstOrDefaultAsync(u => u.Ativo && u.EmpresaId == req.EmpresaId && u.Email == email);
+
+        if (user is null || !_hasher.Verify(password, user.SenhaHash))
             return Unauthorized("E-mail ou senha inválidos.");
 
         return CreateJwt(user);

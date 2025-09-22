@@ -8,14 +8,14 @@ using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// ========================== DB (Postgres)
+// ===== DB (Postgres)
 builder.Services.AddDbContext<DriveOnContext>(opt =>
-    opt.UseNpgsql(builder.Configuration.GetConnectionString("Postgres"))); // ajuste o nome se seu appsettings usa outro
+    opt.UseNpgsql(builder.Configuration.GetConnectionString("Postgres")));
 
-// ========================== DI
+// ===== DI
 builder.Services.AddScoped<IPasswordHasher, BcryptPasswordHasher>();
 
-// ========================== CORS
+// ===== CORS
 const string AllowFrontend = "AllowFrontend";
 builder.Services.AddCors(options =>
 {
@@ -27,7 +27,7 @@ builder.Services.AddCors(options =>
     });
 });
 
-// ========================== JWT
+// ===== JWT
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -51,7 +51,7 @@ builder.Services.AddAuthentication(options =>
 
 builder.Services.AddAuthorization();
 
-// ========================== Controllers + Swagger
+// ===== Controllers + Swagger
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
@@ -72,23 +72,26 @@ builder.Services.AddSwaggerGen(c =>
 
 var app = builder.Build();
 
-// ========================== Migrate (dev helper)
+// ===== aplica migrações automaticamente (dev)
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<DriveOnContext>();
     db.Database.Migrate();
+    // opcional: seeding aqui
+    // var hasher = scope.ServiceProvider.GetRequiredService<IPasswordHasher>();
+    // await DbSeed.SeedAsync(db, hasher);
 }
 
-// ========================== Pipeline
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
-app.UseCors(AllowFrontend); // antes de Auth
+app.UseCors(AllowFrontend);
 app.UseAuthentication();
 app.UseAuthorization();
+
 app.MapControllers();
 
 app.Run();
